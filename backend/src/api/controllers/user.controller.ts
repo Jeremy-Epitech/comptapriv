@@ -23,7 +23,7 @@ export class UserController implements Controller {
 
     getOne = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
         console.log('la');
-        const user: User | null = await this.userRepository.findOneBy({ id: parseInt(request.params.id ?? 0) });
+        const user: User | null = await this.userRepository.findOneBy({ id_u: parseInt(request.params.id ?? 0) });
         response.status(200).send(user);
     };
 
@@ -31,8 +31,8 @@ export class UserController implements Controller {
         try {
             const user: User = new User(request.body.firstName, request.body.email);
 
-            user.lastName = request.body.lastName;
-            user.password = request.body.password;
+            user.lastName_u = request.body.lastName;
+            user.password_u = request.body.password;
 
             const user2 = await this.userRepository.save(user);
             console.log(user2);
@@ -49,14 +49,14 @@ export class UserController implements Controller {
     };
 
     update = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        const user: User | null = await this.userRepository.findOneBy({ id: parseInt(request.params.id ?? 0) });
+        const user: User | null = await this.userRepository.findOneBy({ id_u: parseInt(request.params.id ?? 0) });
 
         if (user) {
-            user.lastName = request.body.lastName;
-            user.firstName = request.body?.firstName;
-            user.email = request.body.email;
-            user.password = request.body.password;
-            await this.userRepository.update(user.id, user);
+            user.lastName_u = request.body.lastName;
+            user.firstName_u = request.body?.firstName;
+            user.email_u = request.body.email;
+            user.password_u = request.body.password;
+            await this.userRepository.update(user.id_u, user);
             response.status(200).send(user);
         } else {
             response.status(400).send('Utilisateur non trouvé');
@@ -65,7 +65,7 @@ export class UserController implements Controller {
 
     delete = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
         try {
-            await this.userRepository.delete({ id: parseInt(request.params.id ?? 0) });
+            await this.userRepository.delete({ id_u: parseInt(request.params.id ?? 0) });
             response.status(200);
         } catch (ex: any) {
             response.status(400).send(ex);

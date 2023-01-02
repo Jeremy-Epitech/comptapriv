@@ -1,36 +1,40 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany } from 'typeorm';
+import { Transactions } from './Transactions';
 
 @Entity()
 export class User extends BaseEntity {
     constructor(firstName: string, email: string) {
         super();
-        this.firstName = firstName;
-        this.email = email;
+        this.firstName_u = firstName;
+        this.email_u = email;
     }
 
     @PrimaryGeneratedColumn()
-    id!: number;
+    id_u!: number;
 
     @Column({
         length: 50,
     })
-    firstName: string;
+    firstName_u: string;
 
     @Column({
         length: 50,
         nullable: true
     })
-    lastName!: string;
+    lastName_u!: string;
 
     @Column({
         length: 100,
         unique: true
     })
-    email: string;
+    email_u: string;
 
     @Column({
         nullable: true
     })
-    password!: string;
+    password_u!: string;
+
+    @ManyToMany(() => Transactions, (transaction: Transactions) => transaction.user)
+    transaction!: Transactions[];
 
 }

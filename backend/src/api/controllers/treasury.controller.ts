@@ -29,10 +29,10 @@ export class TreasuryController implements Controller {
 
     create = async (request: Request, response: Response): Promise<void> => {
         try {
-            // const treasury: Treasury = new Treasury(request.body.firstName, request.body.email);
             const treasury: Treasury = request.body;
-            // treasury.lastName_tre = request.body.lastName;
-            // treasury.password_tre = request.body.password;
+
+            if (!treasury.user || !treasury.user.id_u)
+                throw new Error('Aucun utilisateur n\'est renseigné')
 
             const treasury2: Treasury = await this.treasuryRepository.save(treasury);
             console.log(treasury2);
@@ -40,32 +40,35 @@ export class TreasuryController implements Controller {
             response.status(200).send(treasury2);
         } catch (ex: any) {
             console.log(ex);
-            if (ex?.code === 'ER_DUP_ENTRY')
-                response.status(400).send('Email déjà enregistré');
-            else if (ex?.code === 'ER_NO_DEFAULT_FOR_FIELD')
-                response.status(400).send(ex.sqlMessage);
-            else
+            if (ex?.sqlMessage)
                 response.status(400).send(ex?.sqlMessage);
+            else if (ex?.message)
+                response.status(400).send(ex?.message);
+            else
+                response.status(400).send(ex);
 
         }
 
     };
 
+    //#region Update -> treasury not updated
     update = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        const treasury: Treasury | null = await this.treasuryRepository.findOneBy({ id_tre: parseInt(request.params.id ?? 0) });
+        // const treasury: Treasury | null = await this.treasuryRepository.findOneBy({ id_tre: parseInt(request.params.id ?? 0) });
 
-        if (treasury) {
-            treasury.amount_tre = request.body.amount_tre;
-            treasury.date_tre = request.body?.date_tre;
+        // if (treasury) {
+        //     treasury.amount_tre = request.body.amount_tre;
+        //     treasury.date_tre = request.body?.date_tre;
 
 
-            treasury.user = request.body.user;
-            await this.treasuryRepository.update(treasury.id_tre, treasury);
-            response.status(200).send(treasury);
-        } else {
-            response.status(400).send('Utilisateur non trouvé');
-        }
+        //     const user: User | null = await this.treasuryRepository.findOneBy({ id_tre: parseInt(request.params.id ?? 0) });
+        //     treasury.user = request.body.user;
+        //     await this.treasuryRepository.update(treasury.id_tre, treasury);
+        //     response.status(200).send(treasury);
+        // } else {
+        //     response.status(400).send('Utilisateur non trouvé');
+        // }
     };
+    //#endregion
 
     delete = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
         try {

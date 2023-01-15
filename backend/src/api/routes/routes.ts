@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Controller } from '../controllers/interface.controller';
 
-export class Routeur {
+export abstract class Routeur {
   controller: Controller;
   router: Router;
 

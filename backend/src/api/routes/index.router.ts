@@ -13,12 +13,20 @@ const router = Router();
 //#region User 
 const userRoutes = new UserRouteur(new UserController(), new UserTreasuryController(), new UserTransactionsController());
 userRoutes.getAll();
-userRoutes.getAllTransactions();
-userRoutes.getAllTreasury();
 userRoutes.getOne();
 userRoutes.create();
 userRoutes.update();
 userRoutes.delete();
+
+userRoutes.getAllTransactions();
+userRoutes.createOneTransactions();
+userRoutes.updateOneTransactions();
+userRoutes.deleteOneTransactions();
+
+userRoutes.getAllTreasury();
+userRoutes.createOneTreasury();
+userRoutes.updateOneTreasury();
+userRoutes.deleteOneTreasury();
 //#endregion
 
 //#region Transactions 

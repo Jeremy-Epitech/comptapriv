@@ -15,7 +15,23 @@ services:
       # Where our data will be persisted
     volumes:
       - my-db:/var/lib/mysql
-# Names our volume
+  # backend:
+  #   depends_on:
+  #     - "db"
+  #   build:
+  #     # context: .
+  #     dockerfile: ./backend/Dockerfile
+  #     target: base
+  #   volumes:
+  #     - ./backend:/home/node/app/
+  #     # - ./nodemon.json:/home/node/app/nodemon.json
+  #   container_name: backend
+  #   expose:
+  #     - '3000'
+  #   ports:
+  #     - '3000:3000'
+  #   command: yarn dev
+  # Names our volume
 volumes:
   my-db:
 

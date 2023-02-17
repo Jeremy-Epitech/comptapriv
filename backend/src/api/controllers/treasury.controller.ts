@@ -15,16 +15,18 @@ export class TreasuryController implements Controller {
         this.router = Router();
     }
 
-    getAll = async (request: Request, response: Response): Promise<void> => {
-        const treasurys: Treasury[] = await this.treasuryRepository.find();
-        console.log(treasurys);
+    getAll = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
+        const treasurys: Treasury[] = await this.treasuryRepository.find({ where: { user: { id_u: parseInt(request.params.id ?? 0) } } });
         response.status(200).json(treasurys);
     };
 
     getOne = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        console.log('la');
         const treasury: Treasury | null = await this.treasuryRepository.findOneBy({ id_tre: parseInt(request.params.id ?? 0) });
-        response.status(200).send(treasury);
+
+        if (treasury === null)
+            response.status(404).send();
+        else
+            response.status(200).send(treasury);
     };
 
     create = async (request: Request, response: Response): Promise<void> => {

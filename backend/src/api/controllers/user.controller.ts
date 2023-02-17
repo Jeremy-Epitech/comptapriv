@@ -22,9 +22,12 @@ export class UserController implements Controller {
     };
 
     getOne = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        console.log('la');
         const user: User | null = await this.userRepository.findOneBy({ id_u: parseInt(request.params.id ?? 0) });
-        response.status(200).send(user);
+
+        if (user === null)
+            response.status(404).send();
+        else
+            response.status(200).send(user);
     };
 
     create = async (request: Request, response: Response): Promise<void> => {

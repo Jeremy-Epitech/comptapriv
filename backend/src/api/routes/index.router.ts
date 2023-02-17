@@ -1,14 +1,20 @@
 import { Router } from 'express';
-import { Routeur } from './routeur';
+import { UserRouteur } from './user.routeur';
 import { UserController } from '../controllers/user.controller';
 import { TransactionsController } from '../controllers/transactions.controller';
 import { TreasuryController } from '../controllers/treasury.controller';
+import { TransactionsRouteur } from './transactions.routeur';
+import { TreasuryRouteur } from './treasury.routeur';
+import { UserTreasuryController } from '../controllers/user.treasury.controller';
+import { UserTransactionsController } from '../controllers/user.transactions.controller';
 const router = Router();
 
 
 //#region User 
-const userRoutes = new Routeur(new UserController());
+const userRoutes = new UserRouteur(new UserController(), new UserTreasuryController(), new UserTransactionsController());
 userRoutes.getAll();
+userRoutes.getAllTransactions();
+userRoutes.getAllTreasury();
 userRoutes.getOne();
 userRoutes.create();
 userRoutes.update();
@@ -16,16 +22,16 @@ userRoutes.delete();
 //#endregion
 
 //#region Transactions 
-const transactionRoutes = new Routeur(new TransactionsController());
-transactionRoutes.getAll();
+const transactionRoutes = new TransactionsRouteur(new TransactionsController());
+// transactionRoutes.getAll();
 transactionRoutes.getOne();
 transactionRoutes.create();
 transactionRoutes.delete();
 //#endregion
 
 //#region Treasury 
-const treasuryRoutes = new Routeur(new TreasuryController());
-treasuryRoutes.getAll();
+const treasuryRoutes = new TreasuryRouteur(new TreasuryController());
+// treasuryRoutes.getAll();
 treasuryRoutes.getOne();
 treasuryRoutes.create();
 treasuryRoutes.delete();

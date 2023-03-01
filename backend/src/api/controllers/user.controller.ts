@@ -16,18 +16,49 @@ export class UserController implements Controller {
     }
 
     getAll = async (request: Request, response: Response): Promise<void> => {
-        const users: User[] = await this.userRepository.find();
+        const users: User[] = await this.userRepository.find({
+            select: {
+                firstName_u: true,
+                lastName_u: true,
+                email_u: true,
+                transaction: false,
+                treasury: false
+            }
+        });
         console.log(users);
         response.status(200).json(users);
     };
 
     getOne = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        const user: User | null = await this.userRepository.findOneBy({ id_u: parseInt(request.params.id ?? 0) });
+        const id_u: number = parseInt(request.params.id ?? 0)
 
-        if (user === null)
-            response.status(404).send();
-        else
+        try {
+            if (id_u === 0)
+                throw new Error("Utilisateur non trouvé");
+
+            const user: User | null = await this.userRepository.findOne({
+                where: { id_u: id_u },
+                select: {
+                    id_u: true,
+                    firstName_u: true,
+                    lastName_u: true,
+                    email_u: true,
+                    transaction: true,
+                    treasury: true,
+                    password_u: false
+                },
+                relations: { transaction: true, treasury: true }
+            });
+
             response.status(200).send(user);
+        } catch (ex: any) {
+
+            if (ex?.code === 'ER_NO_DEFAULT_FOR_FIELD')
+                response.status(400).send(ex.sqlMessage);
+            else
+                response.status(400).send(ex.message);
+
+        }
     };
 
     create = async (request: Request, response: Response): Promise<void> => {

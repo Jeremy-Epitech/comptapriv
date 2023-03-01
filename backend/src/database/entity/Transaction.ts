@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne, ManyToOne } from 'typeorm';
 import { HistoricalDate } from './HistoricalDate';
 import { User } from './User';
 
@@ -24,8 +24,7 @@ export class Transaction extends BaseEntity {
     @Column()
     isRecurrent_tra: boolean;
 
-    @OneToOne(() => User)
-    @JoinColumn()
+    @ManyToOne(() => User, (user) => user.transaction)
     user!: User;
 
     @OneToOne(() => HistoricalDate)

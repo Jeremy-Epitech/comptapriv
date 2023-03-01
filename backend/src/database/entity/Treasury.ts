@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne, ManyToOne } from 'typeorm';
 import { User } from './User';
 
 @Entity()
@@ -19,8 +19,7 @@ export class Treasury extends BaseEntity {
     @Column()
     date_tre: Date;
 
-    @OneToOne(() => User)
-    @JoinColumn()
+    @ManyToOne(() => User, (user) => user.treasury)
     user!: User;
 
 }

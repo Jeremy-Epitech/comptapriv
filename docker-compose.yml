@@ -1,37 +1,43 @@
 services:
   db:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
     container_name: comptapriv_db
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     env_file:
       - ./backend/.env
-    ports:
-      - 3306:3306
+      # ports:
+      #   - 3306:3306
 
-    expose:
-      # Opens port 3306 on the container
-      - "3306"
+      # expose:
+      #   # Opens port 3306 on the container
+      #   - "3306"
       # Where our data will be persisted
     volumes:
       - my-db:/var/lib/mysql
-  # backend:
-  #   depends_on:
-  #     - "db"
-  #   build:
-  #     # context: .
-  #     dockerfile: ./backend/Dockerfile
-  #     target: base
-  #   volumes:
-  #     - ./backend:/home/node/app/
-  #     # - ./nodemon.json:/home/node/app/nodemon.json
-  #   container_name: backend
-  #   expose:
-  #     - '3000'
-  #   ports:
-  #     - '3000:3000'
-  #   command: yarn dev
-  # Names our volume
+    networks:
+      - privnet
+
+  backend:
+    container_name: backend
+    depends_on:
+      - "db"
+    build:
+      dockerfile: ./backend/Dockerfile
+      target: base
+    volumes:
+      - ./backend:/home/node/app/
+      # - ./nodemon.json:/home/node/app/nodemon.json
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    command: yarn dev
+    networks:
+      - privnet
+
+networks:
+  privnet: # Names our volume
 volumes:
   my-db:
 

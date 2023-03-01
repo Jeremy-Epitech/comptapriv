@@ -3,7 +3,7 @@ import { HistoricalDate } from './HistoricalDate';
 import { User } from './User';
 
 @Entity()
-export class Transactions extends BaseEntity {
+export class Transaction extends BaseEntity {
     constructor(amount: number, isOut: boolean, isRecurrent: boolean) {
         super();
         this.amount_tra = amount;

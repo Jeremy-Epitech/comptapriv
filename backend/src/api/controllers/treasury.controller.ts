@@ -78,7 +78,6 @@ export class TreasuryController implements Controller {
             response.status(200);
         } catch (ex: any) {
             response.status(400).send(ex);
-
         }
     };
 }

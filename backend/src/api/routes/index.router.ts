@@ -1,27 +1,27 @@
 import { Router } from 'express';
 import { UserRouteur } from './user.routeur';
 import { UserController } from '../controllers/user.controller';
-import { TransactionsController } from '../controllers/transactions.controller';
+import { TransactionController } from '../controllers/transactions.controller';
 import { TreasuryController } from '../controllers/treasury.controller';
-import { TransactionsRouteur } from './transactions.routeur';
+import { TransactionRouteur } from './transactions.routeur';
 import { TreasuryRouteur } from './treasury.routeur';
 import { UserTreasuryController } from '../controllers/user.treasury.controller';
-import { UserTransactionsController } from '../controllers/user.transactions.controller';
+import { UserTransactionController } from '../controllers/user.transactions.controller';
 const router = Router();
 
 
 //#region User 
-const userRoutes = new UserRouteur(new UserController(), new UserTreasuryController(), new UserTransactionsController());
+const userRoutes = new UserRouteur(new UserController(), new UserTreasuryController(), new UserTransactionController());
 userRoutes.getAll();
 userRoutes.getOne();
 userRoutes.create();
 userRoutes.update();
 userRoutes.delete();
 
-userRoutes.getAllTransactions();
-userRoutes.createOneTransactions();
-userRoutes.updateOneTransactions();
-userRoutes.deleteOneTransactions();
+userRoutes.getAllTransaction();
+userRoutes.createOneTransaction();
+userRoutes.updateOneTransaction();
+userRoutes.deleteOneTransaction();
 
 userRoutes.getAllTreasury();
 userRoutes.createOneTreasury();
@@ -29,8 +29,8 @@ userRoutes.updateOneTreasury();
 userRoutes.deleteOneTreasury();
 //#endregion
 
-//#region Transactions 
-const transactionRoutes = new TransactionsRouteur(new TransactionsController());
+//#region Transaction 
+const transactionRoutes = new TransactionRouteur(new TransactionController());
 // transactionRoutes.getAll();
 transactionRoutes.getOne();
 transactionRoutes.create();

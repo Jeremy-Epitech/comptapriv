@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany } from 'typeorm';
-import { Transactions } from './Transactions';
+import { Transaction } from './Transaction';
 import { Treasury } from './Treasury';
 
 @Entity()
@@ -35,8 +35,8 @@ export class User extends BaseEntity {
     })
     password_u!: string;
 
-    @ManyToMany(() => Transactions, (transaction: Transactions) => transaction.user)
-    transaction!: Transactions[];
+    @ManyToMany(() => Transaction, (transaction: Transaction) => transaction.user)
+    transaction!: Transaction[];
 
     @ManyToMany(() => Treasury, (treasury: Treasury) => treasury.user)
     treasury!: Treasury[];

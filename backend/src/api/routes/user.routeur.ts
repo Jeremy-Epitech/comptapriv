@@ -3,51 +3,51 @@ import { Routeur } from './routeur';
 
 export class UserRouteur extends Routeur {
   userTreasuryController: Controller
-  userTransactionsController: Controller
+  userTransactionController: Controller
 
-  constructor(controller: Controller, userTreasuryController: Controller, userTransactionsController: Controller) {
+  constructor(controller: Controller, userTreasuryController: Controller, userTransactionController: Controller) {
     super(controller)
     this.userTreasuryController = userTreasuryController;
-    this.userTransactionsController = userTransactionsController;
+    this.userTransactionController = userTransactionController;
   }
 
   getAllTreasury(): void {
     this.router.get('/:id/treasury', this.userTreasuryController.getAll);
   }
 
-  getAllTransactions(): void {
-    this.router.get('/:id/transactions', this.userTransactionsController.getAll);
+  getAllTransaction(): void {
+    this.router.get('/:id/transactions', this.userTransactionController.getAll);
   }
 
-  getOneTransactions(): void {
-    this.router.get('/:id/transactions/:id_tra', this.userTransactionsController.getOne);
+  getOneTransaction(): void {
+    this.router.get('/:id/transactions/:id_tra', this.userTransactionController.getOne);
   }
 
   getOneTreasury(): void {
-    this.router.get('/:id/treasury/:id_tre', this.userTransactionsController.getOne);
+    this.router.get('/:id/treasury/:id_tre', this.userTransactionController.getOne);
   }
 
-  createOneTransactions(): void {
-    this.router.post('/:id/transactions/', this.userTransactionsController.create);
+  createOneTransaction(): void {
+    this.router.post('/:id/transactions/', this.userTransactionController.create);
   }
 
   createOneTreasury(): void {
-    this.router.post('/:id/treasury', this.userTransactionsController.create);
+    this.router.post('/:id/treasury', this.userTransactionController.create);
   }
 
-  updateOneTransactions(): void {
-    this.router.put('/:id/transactions/:id_tra', this.userTransactionsController.update);
+  updateOneTransaction(): void {
+    this.router.put('/:id/transactions/:id_tra', this.userTransactionController.update);
   }
 
   updateOneTreasury(): void {
-    this.router.put('/:id/treasury/:id_tre', this.userTransactionsController.update);
+    this.router.put('/:id/treasury/:id_tre', this.userTransactionController.update);
   }
 
-  deleteOneTransactions(): void {
-    this.router.delete('/:id/transactions/:id_tra', this.userTransactionsController.delete);
+  deleteOneTransaction(): void {
+    this.router.delete('/:id/transactions/:id_tra', this.userTransactionController.delete);
   }
 
   deleteOneTreasury(): void {
-    this.router.delete('/:id/treasury/:id_tre', this.userTransactionsController.delete);
+    this.router.delete('/:id/treasury/:id_tre', this.userTransactionController.delete);
   }
 }

@@ -17,6 +17,7 @@ export class Compte extends React.Component {
         console.log(teston)
         return (
             <View style={styles.container}>
+                <button style={{ height: '20px' }} onClick={() => { this.transactions.push(new Transactions(1300, true, false)); console.log(this.transactions) }} />
                 <Tableau transactions={this.transactions} />
             </View >
         )

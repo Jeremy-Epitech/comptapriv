@@ -1,12 +1,15 @@
 .table {
     border: 2.5px solid yellow;
-    border-radius: 2em;
+    border-radius: 1.4em;
     padding: 0.4em;
-    font: small-caps cursive;
+    font: small-caps 0.8em cursive;
+    background-color: #b9b9b9;
+
 }
 
 .head {
     background-color: gray;
     color: white;
-
+    border-radius: 1.4em;
+    padding: 0.4em;
 }

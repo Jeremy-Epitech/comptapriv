@@ -33,8 +33,8 @@ export class Tableau extends React.Component<tableau> {
                             return (
                                 <tr key={index}>
                                     <td>{listValue.amount_tra}</td>
-                                    <td>{listValue.isOut_tra}</td>
-                                    <td>{listValue.isRecurrent_tra}</td>
+                                    <td>{listValue.isOut_tra.toString()}</td>
+                                    <td>{listValue.isRecurrent_tra.toString()}</td>
                                 </tr>
                             );
                         })}

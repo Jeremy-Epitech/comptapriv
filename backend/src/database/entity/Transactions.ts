@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne, ManyToMany, ManyToOne } from 'typeorm';
 import { HistoricalDate } from './HistoricalDate';
 import { User } from './User';
 
@@ -14,6 +14,12 @@ export class Transactions extends BaseEntity {
     @PrimaryGeneratedColumn()
     id_tra!: number;
 
+    @Column({
+        length: 50,
+        nullable: false
+    })
+    label_tra!: string;
+
     // @Column({ type: 'decimal', precision: 5, scale: 2, default: 0, })
     @Column("decimal", { precision: 15, scale: 2 })
     amount_tra: number;
@@ -24,11 +30,11 @@ export class Transactions extends BaseEntity {
     @Column()
     isRecurrent_tra: boolean;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User)
     @JoinColumn()
     user!: User;
 
-    @OneToOne(() => HistoricalDate)
+    @ManyToOne(() => HistoricalDate)
     @JoinColumn()
     HistorycalDate!: HistoricalDate;
 

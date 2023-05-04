@@ -24,8 +24,27 @@ export class UserTreasuryController implements Controller {
         response.status(404).send();
     };
 
-    create = async (request: Request, response: Response): Promise<void> => {
-        response.status(404).send();
+    create = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
+        try {
+            const treasury: Treasury = request.body;
+
+            if (!treasury.user || !treasury.user.id_u || treasury.user.id_u !== parseInt(request.params.id ?? 0))
+                throw new Error(`Incohérence des données concernant l'utilisateur`)
+
+            const treasury2: Treasury = await this.treasuryRepository.save(treasury);
+            console.log(treasury2);
+
+            response.status(200).send(treasury2);
+        } catch (ex: any) {
+            console.log(ex);
+            if (ex?.sqlMessage)
+                response.status(400).send(ex?.sqlMessage);
+            else if (ex?.message)
+                response.status(400).send(ex?.message);
+            else
+                response.status(400).send(ex);
+
+        }
     };
 
 
@@ -33,7 +52,13 @@ export class UserTreasuryController implements Controller {
         response.status(404).send();
     };
 
-    delete = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        response.status(404).send();
+    delete = async (request: Request<{ id: string, id_tre: string }>, response: Response): Promise<void> => {
+        try {
+            await this.treasuryRepository.delete({ id_tre: parseInt(request.params.id_tre ?? 0) });
+            response.status(200);
+        } catch (ex: any) {
+            response.status(400).send(ex);
+
+        }
     };
 }

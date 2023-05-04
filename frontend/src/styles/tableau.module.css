@@ -7,9 +7,47 @@
 
 }
 
-.head {
-    background-color: gray;
+.credit {
+    background-color: #009879;
     color: white;
-    border-radius: 1.4em;
-    padding: 0.4em;
 }
+
+.debit {
+    background-color: rgb(175, 5, 5);
+    color: white;
+}
+
+.styled-table {
+    border-spacing: 0;
+    font: small-caps 0.8em cursive;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    overflow: hidden;
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+    border-bottom: 4px solid purple;
+}
+
+.styled-table thead tr {
+    background-color: purple;
+    color: #ffffff;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 0.5em 0.6em;
+}
+
+/* .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+} */
+
+/* .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+} */
+
+/* .styled-table tbody tr:last-of-type td {
+    margin: 10px 0;
+    border-bottom: 2px solid purple;
+} */

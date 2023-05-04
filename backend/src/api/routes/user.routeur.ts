@@ -19,16 +19,16 @@ export class UserRouteur extends Routeur {
     this.router.get('/:id/transactions', this.userTransactionsController.getAll);
   }
 
-  getOneTransactions(): void {
-    this.router.get('/:id/transactions/:id_tra', this.userTransactionsController.getOne);
-  }
+  // getOneTransactions(): void {
+  //   this.router.get('/:id/transactions/:id_tra', this.userTransactionsController.getOne);
+  // }
 
   getOneTreasury(): void {
     this.router.get('/:id/treasury/:id_tre', this.userTransactionsController.getOne);
   }
 
   createOneTransactions(): void {
-    this.router.post('/:id/transactions/', this.userTransactionsController.create);
+    this.router.post('/:id/transactions', this.userTransactionsController.create);
   }
 
   createOneTreasury(): void {

@@ -13,38 +13,59 @@ export class Tableau extends React.Component<tableau> {
         console.log(this)
     }
 
+    showTransactions(listValue: Transactions, index: number) {
+        return (
+            <tr key={index} className={listValue.isOut_tra ? 'debit' : 'credit'}>
+                <td>{listValue.label_tra}</td>
+                <td>{listValue.amount_tra}</td>
+                <td>{listValue.isRecurrent_tra.toString()}</td>
+                <td>{listValue.isOut_tra.toString()}</td>
+            </tr>
+        );
+    }
+
     render() {
         console.log(cs)
-
-        return (
-            <View style={styles.container}>
-                <table className="table">
-                    <thead className="head">
-                        <tr>
-                            {Object.keys(this.props.transactions[0]).map((listValue, index) => {
+        if (this.props.transactions && this.props.transactions.length > 0) {
+            return (
+                <View style={styles.container}>
+                    <table className="styled-table">
+                        {/* <thead className="head"> */}
+                        <thead >
+                            <tr>
+                                <th>Label</th>
+                                <th>Montant</th>
+                                <th>Récurrent ?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.transactions.map((listValue, index) => {
                                 return (
-                                    <th key={index}>{listValue}</th>
+                                    <tr key={index} className={listValue.isOut_tra ? 'debit' : 'credit'}>
+                                        <td>{listValue.label_tra}</td>
+                                        <td>{listValue.amount_tra}</td>
+                                        <td>{listValue.isRecurrent_tra ? 'Oui' : 'Non'}</td>
+                                        {/* <td>{listValue.isOut_tra.toString()}</td> */}
+                                    </tr>
                                 );
                             })}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.transactions.map((listValue, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{listValue.amount_tra}</td>
-                                    <td>{listValue.isOut_tra.toString()}</td>
-                                    <td>{listValue.isRecurrent_tra.toString()}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-                {/* <Text>
+                        </tbody>
+                    </table>
+                    {/* <Text>
                     {this.props.transactions[0].amount_tra}
                 </Text> */}
-            </View >
-        )
+                </View >
+            )
+        }
+        else {
+            return (
+                <View>
+                    <Text>
+                        Aucune données
+                    </Text>
+                </View >
+            )
+        }
     }
 }
 

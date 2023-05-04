@@ -31,6 +31,7 @@ export class User extends BaseEntity {
     email_u: string;
 
     @Column({
+        select: false,
         nullable: true
     })
     password_u!: string;

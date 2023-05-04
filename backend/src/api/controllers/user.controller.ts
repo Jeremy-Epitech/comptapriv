@@ -17,12 +17,17 @@ export class UserController implements Controller {
 
     getAll = async (request: Request, response: Response): Promise<void> => {
         const users: User[] = await this.userRepository.find();
-        console.log(users);
         response.status(200).json(users);
     };
 
     getOne = async (request: Request<{ id: string }>, response: Response): Promise<void> => {
-        const user: User | null = await this.userRepository.findOneBy({ id_u: parseInt(request.params.id ?? 0) });
+        const user: User | null = await this.userRepository.findOne({
+            where: { id_u: parseInt(request.params.id ?? 0) },
+            relations: {
+                transaction: true,
+                treasury: true,
+            }
+        });
 
         if (user === null)
             response.status(404).send();
